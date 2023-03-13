@@ -6,10 +6,10 @@
 template <class T>
 class StackArray : public Stack::template StackArray<T> {
 public:
-	StackArray(const size_t & size = 100):
+	StackArray(const size_t & size = 100)://creates a new empty stack with a top equals to -1
 		array_(new T[size]),
 		size_(size),
-		top(0)
+		top(-1)
 	{};
 	virtual ~StackArray() override {
 		delete[] array_;
@@ -23,10 +23,9 @@ public:
 	bool isEmpty() const override;
 private:
 	T* array_;
-	size_t top_;
+	int top_;
 	size_t size_;
 };
-
 
 template <class T>
 StackArray<T>::StackArray(StackArray<T>&& other) {
@@ -52,17 +51,35 @@ StackArray<T>& StackArray<T>::operator=(StackArray<T>&& other) {
 
 template <class T>
 void StackArray<T>::push(const T& e){
-	;
+	if (array_ != nullptr && top_ == -1 && size_ > 0 ) {//if stack is empty we will push the element in it with index eq to 0 
+		//top_ = 0;
+		array_[top_ = 0] = e;
+	}
+	else if (top_ + 1 < size_) {//if stack is not empty and it's not full
+		array_[++top_] = e;
+	}
+	///else: StackOverflow
 }
 
 template <class T>
 T StackArray<T>::pop() {
-	;
+	if (top_ == 0) {//if stack includes 1 element we will pop it and top equals to -1
+		top_ = -1;
+		return array_[0];
+	}
+	else if (top_ != -1) {
+		top_--;
+		return array_[top_ + 1];
+	}
+	///else: StackUnderflow
 }
 
 template<class T>
 bool StackArray<T>::isEmpty() const {
-	;
+	if (array_ != nullptr && size_ >=1 && top_ == -1 ) {
+		return true;
+	}
+	return false;
 }
 
 #endif
