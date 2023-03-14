@@ -133,6 +133,7 @@
     <ClInclude Include="StackList.h" />
     <ClInclude Include="StackOverflow.h" />
     <ClInclude Include="StackUnderflow.h" />
+    <ClInclude Include="WrongStackSize.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Stack.cpp" />

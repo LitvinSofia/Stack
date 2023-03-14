@@ -2,9 +2,10 @@
 #ifndef STACK_ARRAY_H
 #define STACK_ARRAY_H
 #include "Stack.h" 
+#include <iostream>
 
 template <class T>
-class StackArray : public Stack::template StackArray<T> {
+class StackArray : public Stack<T>::template StackArray<T> {
 public:
 	StackArray(const size_t & size = 100)://creates a new empty stack with a top equals to -1
 		array_(new T[size]),
@@ -14,13 +15,14 @@ public:
 	virtual ~StackArray() override {
 		delete[] array_;
 	}
-	StackArray(StackArray<T>&& other);
-	StackArray& operator=(StackArray<T>&& other);
+	StackArray(StackArray<T>&& other) noexcept;
+	StackArray& operator=(StackArray<T>&& other) noexcept;
 	StackArray<T>(const StackArray<T>& other) = delete;
 	StackArray& operator=(const StackArray<T>& other) = delete;
 	void push(const T& e) override;
 	T pop() override;
 	bool isEmpty() const override;
+	friend std::ostream& operator<<(std::ostream& out, StackArray& stack);
 private:
 	T* array_;
 	int top_;
@@ -28,7 +30,7 @@ private:
 };
 
 template <class T>
-StackArray<T>::StackArray(StackArray<T>&& other) {
+StackArray<T>::StackArray(StackArray<T>&& other) noexcept {
 	if (this != &other) {
 		delete[] array_;
 		array_ = other.array_;
@@ -39,7 +41,7 @@ StackArray<T>::StackArray(StackArray<T>&& other) {
 }
 
 template <class T>
-StackArray<T>& StackArray<T>::operator=(StackArray<T>&& other) {
+StackArray<T>& StackArray<T>::operator=(StackArray<T>&& other) noexcept {
 	if (this != &other) {
 		delete[] array_;
 		array_ = other.array_;
@@ -80,6 +82,14 @@ bool StackArray<T>::isEmpty() const {
 		return true;
 	}
 	return false;
+}
+
+template <class T>
+std::ostream& operator<<(std::ostream& out, StackArray<T>& stack) {
+	for (int i = 0; i < size_; i++) {
+		out << array_[i]<<" ";
+	}
+	return out;
 }
 
 #endif
