@@ -1,6 +1,7 @@
 #pragma once
 #ifndef STACK_H
 #define STACK_H
+#include <iostream>
 
 template <class T>
 class Stack {

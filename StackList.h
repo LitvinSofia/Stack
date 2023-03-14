@@ -3,9 +3,8 @@
 #define STACKLIST_H
 #include "Stack.h"
 #include <iostream>
-
-template <class KeyT>
-class StackList : public Stack<T>::template StackList<KeyT> {
+template <class T>
+class StackList : public Stack<T>::template StackList<T> {
 public:
 	StackList(size_t size):
 		top_(nullptr),
@@ -19,7 +18,7 @@ public:
 			delete temp;
 		} 
 	}
-	StackList<KeyT>& operator=(StackList<KeyT>&& other) noexcept {
+	StackList<T>& operator=(StackList<T>&& other) noexcept {
 		if (this != other) {
 			while (top_) {
 				Node* temp = top_;
@@ -35,7 +34,7 @@ public:
 		}
 		return *this;
 	}
-	StackList<KeyT>(StackList<KeyT>&& other) noexcept :
+	StackList<T>(StackList<T>&& other) noexcept :
 		top_(other.top_),
 		size_(other.size_),
 		realSize_(other.realSize_)
@@ -44,19 +43,18 @@ public:
 		other.size_ = 0;
 		other.realSize_ = 0;
 	}
-	StackList<T>(const StackListT>& other) = delete;
+	StackList<T>(const StackList<T>& other) = delete;
 	StackList& operator=(const StackList<T>& other) = delete;
-	template <class T>
-	friend std::ostream& operator<<(std::ostream& out, const StackList<T>& list);
-	KeyT pop() override;
-	void push(const KeyT& e) override;
+	T pop() override;
+	void push(const T& e) override;
 	bool isEmpty() override;
+	template <class K>
+	friend std::ostream& operator<<(std::ostream& out, const StackList<K>& list);
 private:
 	struct Node {
-		KeyT key;
-		Node* next;
 		T key;
-		Node(const KeyT& k, Node* n = nullptr):
+		Node* next;
+		Node(const T& k, Node* n = nullptr):
 			key(k),
 			next(n)
 		{}
@@ -70,9 +68,9 @@ private:
 	size_t realSize_;
 };
 
-template<class T>
-std::ostream& operator<<(std::ostream& out, const StackList<T>& list) {
-	typename StackList<T>::Node* temp = list.top_;
+template<class K>
+std::ostream& operator<<(std::ostream& out, const StackList<K>& list) {
+	typename StackList<K>::Node* temp = list.top_;
 	while (temp) {
 		out << temp->key << " ";
 		temp = temp->next;
@@ -81,30 +79,30 @@ std::ostream& operator<<(std::ostream& out, const StackList<T>& list) {
 	return out;
 }
 
-template <class KeyT>
-KeyT StackList<KeyT>::pop() {
+template <class T>
+T StackList<T>::pop() {
 	if (realSize_ > 0) {
 		Node* temp = top_;
 		top_ = top_->next;
-		KeyT value = temp->key;
+		T value = temp->key;
 		delete temp;
 		return value;
 	}
 	//else StacklUnderflow
 }
 
-template <class KeyT>
-void StackList<KeyT>::push(const KeyT& e) {
+template <class T>
+void StackList<T>::push(const T& e) {
 	if (realSize_ < size_) {
 		Node* newNode = new Node(e, top_);
 		top_ = newNode;
-		realSize++;
+		realSize_++;
 	}
 	//else StackOverflow;
 }
 
-template<class KeyT>
-bool StackList<KeyT>::isEmpty() {
+template<class T>
+bool StackList<T>::isEmpty() {
 	if (top_ == nullptr) {
 		return true;
 	}

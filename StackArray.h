@@ -3,14 +3,13 @@
 #define STACK_ARRAY_H
 #include "Stack.h" 
 #include <iostream>
-
 template <class T>
 class StackArray : public Stack<T>::template StackArray<T> {
 public:
 	StackArray(const size_t & size = 100)://creates a new empty stack with a top equals to -1
 		array_(new T[size]),
 		size_(size),
-		top(-1)
+		top_(-1)
 	{};
 	virtual ~StackArray() override {
 		delete[] array_;
@@ -57,7 +56,7 @@ void StackArray<T>::push(const T& e){
 		//top_ = 0;
 		array_[top_ = 0] = e;
 	}
-	else if (top_ + 1 < size_) {//if stack is not empty and it's not full
+	else if (top_ >= 0  && top_ + 1 < size_) {//if stack is not empty and it's not full
 		array_[++top_] = e;
 	}
 	///else: StackOverflow
@@ -86,8 +85,8 @@ bool StackArray<T>::isEmpty() const {
 
 template <class T>
 std::ostream& operator<<(std::ostream& out, StackArray<T>& stack) {
-	for (int i = 0; i < size_; i++) {
-		out << array_[i]<<" ";
+	for (int i = 0; i < stack.size_; i++) {
+		out << stack.array_[i]<<" ";
 	}
 	return out;
 }

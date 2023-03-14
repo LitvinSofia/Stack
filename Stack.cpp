@@ -1,5 +1,6 @@
 #include "Stack.h"
-#include <iostream>
+#include "StackList.h"
+#include"StackArray.h"
 
 int main() {
 
