@@ -1,10 +1,17 @@
 #pragma once
 #ifndef STACKOVERFLOW_H
 #define STACKOVERFLOW_H
-class StackOverflow {
+#include <exception>
+#include <string>
+class StackOverflow : public std::exception {
 public:
-	;
+	StackOverflow(): 
+		reason_("Stack Overflow")
+	{}
+	const std::string& what() {//const override { 
+		return reason_; 
+	}
 private:
-	;
+	const std::string reason_;
 };
 #endif

@@ -1,10 +1,18 @@
 #pragma once
 #ifndef STACKUNDERFLOW_H
 #define STACKUNDERFLOW_H
-class StackUnderflow {
+#include <exception>
+#include <string>
+
+class StackUnderflow: public std::exception	{
 public:
-	;
+	StackUnderflow() : 
+		reason_("Stack Underflow")
+	{}
+	const std::string& what(){// const {
+		return reason_;
+	}
 private:
-	;
+	const std::string reason_;
 };
 #endif

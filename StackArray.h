@@ -2,15 +2,16 @@
 #ifndef STACK_ARRAY_H
 #define STACK_ARRAY_H
 #include "Stack.h" 
+#include "WrongStackSize.h"
+#include "StackOverflow.h"
+#include "StackUnderflow.h"
 #include <iostream>
+
 template <class T>
-class StackArray : public Stack<T>::template StackArray<T> {
+class StackArray : public Stack<T>{
 public:
-	StackArray(const size_t & size = 100)://creates a new empty stack with a top equals to -1
-		array_(new T[size]),
-		size_(size),
-		top_(-1)
-	{};
+	StackArray(size_t size = 100);
+	StackArray() = delete;
 	virtual ~StackArray() override {
 		delete[] array_;
 	}
@@ -21,13 +22,33 @@ public:
 	void push(const T& e) override;
 	T pop() override;
 	bool isEmpty() const override;
-	friend std::ostream& operator<<(std::ostream& out, StackArray& stack);
+	friend std::ostream& operator<<(std::ostream& out, StackArray<T>& stack);
 private:
 	T* array_;
 	int top_;
 	size_t size_;
+	void swap(StackArray<T>& other);
 };
 
+template <class T>
+void StackArray<T>::swap(StackArray<T>& other) {
+	std::swap(array_, other.array_);
+	std::swap(top_, other.top_);
+	std::swap(size_, other.size_);
+}
+
+template <class T>
+StackArray<T>::StackArray(size_t size):
+	size_(size),
+	top_(0)
+{
+	try {
+		array_ = new T[size + 1];
+	}
+	catch (std::bad_alloc&) {
+		throw WrongStackSize();
+	}
+}
 template <class T>
 StackArray<T>::StackArray(StackArray<T>&& other) noexcept {
 	if (this != &other) {
@@ -52,32 +73,23 @@ StackArray<T>& StackArray<T>::operator=(StackArray<T>&& other) noexcept {
 
 template <class T>
 void StackArray<T>::push(const T& e){
-	if (array_ != nullptr && top_ == -1 && size_ > 0 ) {//if stack is empty we will push the element in it with index eq to 0 
-		//top_ = 0;
-		array_[top_ = 0] = e;
+	if (top_ == size_) {
+		throw StackOverflow();
 	}
-	else if (top_ >= 0  && top_ + 1 < size_) {//if stack is not empty and it's not full
-		array_[++top_] = e;
-	}
-	///else: StackOverflow
+	array_[++top_] = e;
 }
 
 template <class T>
 T StackArray<T>::pop() {
-	if (top_ == 0) {//if stack includes 1 element we will pop it and top equals to -1
-		top_ = -1;
-		return array_[0];
+	if (isEmpty()) {//if stack includes 1 element we will pop it and top equals to -1
+		throw StackUnderflow();
 	}
-	else if (top_ != -1) {
-		top_--;
-		return array_[top_ + 1];
-	}
-	///else: StackUnderflow
+	return array_[top_--];
 }
 
 template<class T>
 bool StackArray<T>::isEmpty() const {
-	if (array_ != nullptr && size_ >=1 && top_ == -1 ) {
+	if (top_ == 0) {
 		return true;
 	}
 	return false;
