@@ -2,6 +2,7 @@
 #include <string>
 #include "Stack.h"
 #include"StackArray.h"
+#include "QueueArray.h"
 
 bool checkBalanceBrackets(const char* text, const int maxDeep);
 
@@ -11,29 +12,15 @@ int main() {
 	Stack.push(1);
 	Stack.pop();
 	Stack.pop();*/
-	//char* str[7] = {'(', ')', '[', ']', '{', '}'};
-	const char* str = "()[]{}({[]}[{}])";	
-	std::cout << checkBalanceBrackets(str, 10) << "		true" << '\n';
-	str = "()";
-	std::cout << checkBalanceBrackets(str, 10) << "		true" << '\n';
-	str = "(8)*{5/[8-9*(2-a)]}";
-	std::cout << checkBalanceBrackets(str, 10) << "		true" << '\n';
-	str = "(()";
-	std::cout << checkBalanceBrackets(str, 10) << "		false" << '\n';
-	str = "()}";
-	std::cout << checkBalanceBrackets(str, 10) << "		false" << '\n';
-	str = "({[])}";
-	std::cout << checkBalanceBrackets(str, 10) << "		false" << '\n';
-	str = "({[()]})";
-	std::cout << checkBalanceBrackets(str, 2) << "		false" << '\n';
-	str = "([]]))";
-	std::cout << checkBalanceBrackets(str, 10) << "		false" << '\n';
-	str = "[]]))";
-	std::cout << checkBalanceBrackets(str, 10) << "		false" << '\n';
-	str = "(({})){}[]]))";
-	std::cout << checkBalanceBrackets(str, 10) << "		false" << '\n';
-
-
+	QueueArray<int> queue(5);
+	queue.enQueue(1);
+	queue.enQueue(2);
+	queue.enQueue(3);
+	queue.enQueue(4);
+	std::cout << queue << '\n';
+	queue.deQueue();
+	queue.deQueue();
+	std::cout << queue;
 	return 0;
 
 }

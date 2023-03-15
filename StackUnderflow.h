@@ -2,7 +2,6 @@
 #ifndef STACKUNDERFLOW_H
 #define STACKUNDERFLOW_H
 #include <exception>
-#include <string>
 
 class StackUnderflow: public std::exception	{
 public:

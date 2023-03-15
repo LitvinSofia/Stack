@@ -1,9 +1,7 @@
 #pragma once
 #pragma once
-#ifndef DICTIONARY_H
-#define DICTIONARY_H
-#include <iostream>
-#include <string>
+#ifndef WRONG_STACK_SIZE_H
+#define WRONG_STACK_SIZE_H
 #include <exception>
 
 class WrongStackSize: public std::exception {
