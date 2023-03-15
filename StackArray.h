@@ -10,7 +10,7 @@
 template <class T>
 class StackArray : public Stack<T>{
 public:
-	StackArray(size_t size = 100);
+	StackArray(int size = 100);
 	StackArray() = delete;
 	virtual ~StackArray() override {
 		delete[] array_;
@@ -24,10 +24,16 @@ public:
 	bool isEmpty() const override;
 	template <class T>//надо перед дружественными функциями повторять шаблон
 	friend std::ostream& operator<<(std::ostream& out, StackArray<T>& stack);
+	T getTopElement() {
+		return array_[top_];
+	}
+	int getTop() {
+		return top_;
+	}
 private:
 	T* array_;
 	int top_;
-	size_t size_;
+	int size_;
 	void swap(StackArray<T>& other);
 };
 
@@ -39,15 +45,14 @@ void StackArray<T>::swap(StackArray<T>& other) {
 }
 
 template <class T>
-StackArray<T>::StackArray(size_t size):
+StackArray<T>::StackArray(int size):
 	size_(size),
 	top_(0)
 {
-	try{
-		array_ = new T[size + 1];
+	if(size > 0){
+		array_ = new T[size_ + 1];
 	}
-	catch (const std::exception& e) {
-		std::cerr << e.what();
+	else {
 		throw WrongStackSize();
 	}
 }

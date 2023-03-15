@@ -6,12 +6,12 @@
 class StackOverflow : public std::exception {
 public:
 	StackOverflow(): 
-		reason_("Stack Overflow")
+		reason_("Stack Overflow\n")
 	{}
-	const std::string& what() {
+	const char* what() const {
 		return reason_; 
 	}
 private:
-	const std::string reason_;
+	const char* reason_;
 };
 #endif

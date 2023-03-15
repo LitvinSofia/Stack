@@ -7,12 +7,12 @@
 class StackUnderflow: public std::exception	{
 public:
 	StackUnderflow() : 
-		reason_("Stack Underflow")
+		reason_("Stack Underflow\n")
 	{}
-	const std::string& what(){
+	const char* what() const {
 		return reason_;
 	}
 private:
-	const std::string reason_;
+	const char* reason_;
 };
 #endif
