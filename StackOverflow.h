@@ -8,7 +8,7 @@ public:
 	StackOverflow(): 
 		reason_("Stack Overflow")
 	{}
-	const std::string& what() {//const override { 
+	const std::string& what() {
 		return reason_; 
 	}
 private:

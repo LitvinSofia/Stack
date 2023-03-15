@@ -9,7 +9,7 @@ public:
 	StackUnderflow() : 
 		reason_("Stack Underflow")
 	{}
-	const std::string& what(){// const {
+	const std::string& what(){
 		return reason_;
 	}
 private:

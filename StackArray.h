@@ -22,6 +22,7 @@ public:
 	void push(const T& e) override;
 	T pop() override;
 	bool isEmpty() const override;
+	template <class T>//надо перед дружественными функциями повторять шаблон
 	friend std::ostream& operator<<(std::ostream& out, StackArray<T>& stack);
 private:
 	T* array_;
@@ -42,20 +43,18 @@ StackArray<T>::StackArray(size_t size):
 	size_(size),
 	top_(0)
 {
-	try {
+	try{
 		array_ = new T[size + 1];
 	}
-	catch (std::bad_alloc&) {
+	catch (const std::exception& e) {
+		std::cerr << e.what();
 		throw WrongStackSize();
 	}
 }
 template <class T>
 StackArray<T>::StackArray(StackArray<T>&& other) noexcept {
 	if (this != &other) {
-		delete[] array_;
-		array_ = other.array_;
-		top_ = other.top_;
-		size_ = other.size_;
+		swap(other);
 	}
 	return *this;
 }
@@ -63,10 +62,7 @@ StackArray<T>::StackArray(StackArray<T>&& other) noexcept {
 template <class T>
 StackArray<T>& StackArray<T>::operator=(StackArray<T>&& other) noexcept {
 	if (this != &other) {
-		delete[] array_;
-		array_ = other.array_;
-		top_ = other.top_;
-		size_ = other.size_;
+		swap(other);
 	}
 	return *this;
 }
@@ -89,15 +85,12 @@ T StackArray<T>::pop() {
 
 template<class T>
 bool StackArray<T>::isEmpty() const {
-	if (top_ == 0) {
-		return true;
-	}
-	return false;
+	return top_ == 0;
 }
 
 template <class T>
 std::ostream& operator<<(std::ostream& out, StackArray<T>& stack) {
-	for (int i = 0; i < stack.size_; i++) {
+	for (int i = 1; i <= stack.top_; i++) {
 		out << stack.array_[i]<<" ";
 	}
 	return out;
