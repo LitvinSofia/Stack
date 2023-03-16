@@ -6,7 +6,7 @@
 class QueueOverflow : public std::exception {
 public:
 	QueueOverflow() :
-		reason_("Queue Overflow\n")
+		reason_("Queue Overflow")
 	{}
 	const char* what() const {
 		return reason_;

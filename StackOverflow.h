@@ -6,7 +6,7 @@
 class StackOverflow : public std::exception {
 public:
 	StackOverflow(): 
-		reason_("Stack Overflow\n")
+		reason_("Stack Overflow")
 	{}
 	const char* what() const {
 		return reason_; 

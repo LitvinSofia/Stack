@@ -6,7 +6,7 @@
 class QueueUnderflow : public std::exception {
 public:
 	QueueUnderflow():
-		reason_("Queue Underflow\n")
+		reason_("Queue Underflow")
 	{}
 	const char* what() const {
 		return reason_;

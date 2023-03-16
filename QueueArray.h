@@ -16,7 +16,7 @@ public:
 		tail_(0)
 	{
 		if (length > 0) {
-			queue_ = new T[length];
+			queue_ = new T[length+1];
 		}
 		else {
 			throw WrongQueueSize();
@@ -43,15 +43,19 @@ private:
 };
 template<class T>
 void QueueArray<T>::enQueue(const T& e) {
-	if (tail_ + 1 == head_) {
+	if (tail_ + 1 == head_  || tail_ - length_ == head_) {
 		throw QueueOverflow();
 	}
-	queue_[tail_] = e;
-	if (tail_ == length_ - 1) {
+	bool fl = false;
+	if (tail_ == length_) {
+		queue_[tail_] = e;
 		tail_ = 0;
+		fl = true;
 	}
-	else {
-		++tail_;
+	else if(tail_ != length_){
+		queue_[tail_] = e;
+		tail_++;
+		fl = true;
 	}
 }
 
@@ -61,7 +65,7 @@ T QueueArray<T>::deQueue() {
 		throw QueueUnderflow();
 	}
 	T x = queue_[head_];
-	if (head_ == (length_ - 1)) {
+	if (head_ == length_) {
 		head_ = 0;
 	}
 	else {

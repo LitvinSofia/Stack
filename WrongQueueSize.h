@@ -6,7 +6,7 @@
 class WrongQueueSize : public std::exception {
 public:
 	WrongQueueSize():
-		reason_("Wrong Queue Size\n")
+		reason_("Wrong Queue Size")
 	{}
 	const char* what() const {
 		return reason_;
