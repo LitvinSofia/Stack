@@ -3,7 +3,7 @@
 
 bool checkBalanceBrackets(const char* text, const int maxDeep) {
 	StackArray<char> stack(maxDeep);
-	while (*text && stack.getTop() < maxDeep) {
+	while (*text && stack.getTop() <= maxDeep) {
 		if (*text == '(' || *text == '{' || *text =='[') {
 			stack.push(*text);
 			text++;
@@ -30,7 +30,7 @@ bool checkBalanceBrackets(const char* text, const int maxDeep) {
 			}
 		}
 		if (*text == ']') {
-			if (stack.getTopElement() == '[') {
+			if (stack.getTopElement	() == '[') {
 				stack.pop();
 				text++;
 				continue;

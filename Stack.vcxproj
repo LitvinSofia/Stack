@@ -127,14 +127,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Header.h" />
+    <ClInclude Include="CheckBalanceBrackets.h" />
     <ClInclude Include="Queue.h" />
     <ClInclude Include="QueueArray.h" />
     <ClInclude Include="QueueOverflow.h" />
     <ClInclude Include="QueueUnderflow.h" />
     <ClInclude Include="Stack.h" />
     <ClInclude Include="StackArray.h" />
-    <ClInclude Include="StackList.h" />
     <ClInclude Include="StackOverflow.h" />
     <ClInclude Include="StackUnderflow.h" />
     <ClInclude Include="WrongQueueSize.h" />

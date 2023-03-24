@@ -22,12 +22,12 @@ public:
 	void push(const T& e) override;
 	T pop() override;
 	bool isEmpty() const override;
-	template <class T>//надо перед дружественными функциями повторять шаблон
+	template <class T>
 	friend std::ostream& operator<<(std::ostream& out, StackArray<T>& stack);
-	T getTopElement() {
+	const T& getTopElement() const {
 		return array_[top_];
 	}
-	int getTop() {
+	const int& getTop() const {
 		return top_;
 	}
 private:
