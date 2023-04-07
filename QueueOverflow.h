@@ -1,4 +1,3 @@
-#pragma once
 #ifndef QUEUE_OVERFLOW_H
 #define QUEUE_OVERFLOW_H
 #include <exception>

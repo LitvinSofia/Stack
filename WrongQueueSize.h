@@ -1,4 +1,3 @@
-#pragma once
 #ifndef WRONG_QUEUE_SIZE_H
 #define WRONG_QUEUE_SIZE_H
 #include <exception>

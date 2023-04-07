@@ -1,5 +1,3 @@
-#pragma once
-#pragma once
 #ifndef WRONG_STACK_SIZE_H
 #define WRONG_STACK_SIZE_H
 #include <exception>

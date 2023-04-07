@@ -1,4 +1,3 @@
-#pragma once
 #ifndef QUEUE_UNDERFLOW_H
 #define QUEUE_UNDERFLOW_H
 #include <exception>
